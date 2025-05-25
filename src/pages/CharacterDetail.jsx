@@ -13,7 +13,7 @@ export const CharacterDetail = () => {
     const fetchCharacter = async () => {
       try {
         const response = await fetch(
-          `https://rickandmortyapi.com/api/charact/${id}`
+          `https://rickandmortyapi.com/api/character/${id}`
         );
         if (!response.ok) {
           navigate("/error", { state: { error: "Personaje no encontrado" } });
@@ -45,18 +45,19 @@ export const CharacterDetail = () => {
   }
 
   return (
-    <div className=" flex flex-col items-center  md:justify-center  ">
-      <div className=" flex flex-col md:justify-center md:items-center ">
+    <div className=" flex flex-col items-center justify-center min-h-screen md:justify-center   ">
+      <div className=" flex flex-col items-center md:justify-center md:items-center ">
         <img
-          className="w-50 md:w-70 rounded-md my-10"
+          className="w-50 md:w-70 rounded-md my-10 mx-auto"
           src={character.image}
           alt={character.name}
         />
-        <h1 className="text-3xl md:text-4xl font-semibold text-cyan-400">
+        <h1 className=" text-center text-3xl md:text-4xl font-semibold text-cyan-400">
           Nombre: {character.name}
         </h1>
       </div>
       <section className="my-5 text-cyan-500 md:text-2xl">
+        <p>Creado: {character.created}</p>
         <p>Estado: {character.status || "Desconocido"}</p>
         <p>Especie: {character.species}</p>
         <p>Tipo: {character.type || "Desconocido"}</p>
