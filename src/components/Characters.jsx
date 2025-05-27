@@ -1,35 +1,9 @@
-import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useCharacterById } from "../hooks/useGetCharacter";
 
 export const Characters = () => {
-  const [family, setFamily] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const getFamily = async () => {
-      try {
-        const response = await fetch(
-          "https://rickandmortyapi.com/api/character/3,4,5"
-        );
-        if (!response.ok) return navigate("/error");
-        const data = await response.json();
-        setFamily(data);
-      } catch (error) {
-        setError(error);
-        navigate("/error", {
-          state: {
-            error: "Error Al cargar el personaje",
-            details: error.message,
-          },
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-    getFamily();
-  }, [navigate]);
+  const { character, loading, error } = useCharacterById("3,4,5");
 
   if (loading) {
     <div>
@@ -50,7 +24,7 @@ export const Characters = () => {
     <section className="text-center">
       <h2 className="text-3xl font-semibold text-cyan-500">Familia </h2>
       <div className="flex flex-col md:flex-row items-center wrap-normal my-10  md:gap-10 md:justify-center mx-auto">
-        {family.map((fami) => (
+        {character.map((fami) => (
           <div
             key={fami.id}
             className="m-4 border-cyan-500 bg-white border rounded-md p-4 flex flex-col items-center text-cyan-500 "
