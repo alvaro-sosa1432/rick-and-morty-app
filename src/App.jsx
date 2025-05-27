@@ -5,7 +5,6 @@ import { Protagonist } from "./components/Protagonist";
 function App() {
   return (
     <div>
-      <Header />
       <Protagonist />
       <Characters />
     </div>

@@ -1,39 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { NotFound } from "./NotFound";
+import { useCharacterById } from "../hooks/useGetCharacter";
 
 export const CharacterDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [character, setCharacter] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchCharacter = async () => {
-      try {
-        const response = await fetch(
-          `https://rickandmortyapi.com/api/character/${id}`
-        );
-        if (!response.ok) {
-          navigate("/error", { state: { error: "Personaje no encontrado" } });
-        }
-        const data = await response.json();
-        setCharacter(data);
-      } catch (error) {
-        setError(error);
-        navigate("/error", {
-          state: {
-            error: "Error al cargar el personaje",
-            details: error.message,
-          },
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCharacter();
-  }, [id, navigate]);
+  const { loading, character, error } = useCharacterById(id);
 
   if (loading)
     return <div className="text-center p-4">Cargando personaje...</div>;
@@ -65,6 +38,7 @@ export const CharacterDetail = () => {
         <p>Origin: {character.origin.name}</p>
         <p>Localizacion: {character.location.name}</p>
       </section>
+      <div></div>
     </div>
   );
 };
