@@ -5,7 +5,7 @@ const URL = `https://rickandmortyapi.com/api/character`;
 
 export const useCharacterById = (id) => {
   const navigate = useNavigate();
-  const [character, setCharacter] = useState(null);
+  const [character, setCharacter] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 

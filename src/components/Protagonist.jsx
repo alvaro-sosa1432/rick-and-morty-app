@@ -1,22 +1,21 @@
-import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card } from "./Card";
+import { useCharacterById } from "../hooks/useGetCharacter";
 
 export const Protagonist = () => {
-  const URL = "https://rickandmortyapi.com/api/character/1,2";
-  const [character, setCharacter] = useState([]);
+  const navigate = useNavigate();
+  const { character, loading, error } = useCharacterById("1,2");
+  if (!character) {
+    <div>Cargando ...</div>;
+  }
 
-  useEffect(() => {
-    const getCharacters = async () => {
-      try {
-        const response = await fetch(URL);
-        const data = await response.json();
-        setCharacter(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getCharacters();
-  }, []);
+  if (loading) {
+    <div>Cargando Personajes...</div>;
+  }
+
+  if (error) {
+    navigate("/error");
+  }
 
   return (
     <div className="text-center">

@@ -11,14 +11,14 @@ export const CharacterDetail = () => {
   if (loading)
     return <div className="text-center p-4">Cargando personaje...</div>;
   if (error) {
-    navigate(<NotFound error={error} />);
+    navigate(<NotFound />);
   }
   if (!character) {
     <div>Cargando ...</div>;
   }
 
   return (
-    <div className=" flex flex-col items-center justify-center min-h-screen md:justify-center   ">
+    <div className=" flex flex-col items-center justify-center min-h-screen md:justify-center    ">
       <div className=" flex flex-col items-center md:justify-center md:items-center ">
         <img
           className="w-50 md:w-70 rounded-md my-10 mx-auto"
