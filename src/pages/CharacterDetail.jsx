@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { NotFound } from "./NotFound";
 import { useCharacterById } from "../hooks/useGetCharacter";
+import { ButtonMove } from "../components/ButtonMove";
 
 export const CharacterDetail = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ export const CharacterDetail = () => {
   }
 
   return (
-    <div className=" flex flex-col items-center justify-center min-h-screen md:justify-center    ">
+    <div className=" flex flex-col items-center justify-center my-10 md:justify-center    ">
       <div className=" flex flex-col items-center md:justify-center md:items-center ">
         <img
           className="w-50 md:w-70 rounded-md my-10 mx-auto"
@@ -38,7 +39,9 @@ export const CharacterDetail = () => {
         <p>Origin: {character.origin.name}</p>
         <p>Localizacion: {character.location.name}</p>
       </section>
-      <div></div>
+      <div>
+        <ButtonMove id={id} />
+      </div>
     </div>
   );
 };
