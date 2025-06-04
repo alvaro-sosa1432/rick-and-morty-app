@@ -1,5 +1,4 @@
 import { Protagonist } from "../components/Protagonist";
-import { Link } from "react-router-dom";
 
 export const Home = () => {
   return (
@@ -15,14 +14,6 @@ export const Home = () => {
         fácilmente influenciable nieto, Morty
       </p>
       <Protagonist />
-      <div className="flex justify-center py-10 ">
-        <Link
-          className="bg-cyan-500 p-2 w-auto text-white text-center rounded-md cursor-pointer"
-          to="/characterlist"
-        >
-          Mas Personajes
-        </Link>
-      </div>
     </div>
   );
 };

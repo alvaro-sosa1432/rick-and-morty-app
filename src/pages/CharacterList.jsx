@@ -1,13 +1,13 @@
 import { Card } from "../components/Card";
 import { useAllCharacters } from "../hooks/useGetCharacter";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const CharacterList = () => {
   const [search, setSearch] = useState("");
 
   const navigate = useNavigate();
-  const { characters, error, loading } = useAllCharacters();
+  const { characters, error, loading } = useAllCharacters(search);
 
   if (!characters) {
     <div>
@@ -15,15 +15,21 @@ export const CharacterList = () => {
     </div>;
   }
 
-  if (error) {
-    navigate("/error");
-  }
+  useEffect(() => {
+    if (error) {
+      navigate("/error");
+    }
+  });
 
   if (loading) {
     <div>
       <p>Cargando Personajes...</p>
     </div>;
   }
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   return (
     <div>
@@ -32,10 +38,9 @@ export const CharacterList = () => {
           className="p-2 my-4 border border-cyan-500 rounded-md outline-none"
           type="text"
           placeholder="Buscar personaje"
+          value={search}
+          onChange={handleSearch}
         />
-        <button className="bg-cyan-500 p-2 w-auto text-white text-center rounded-md cursor-pointer ">
-          Buscar personajes
-        </button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mx-5">
         {characters.map((character) => (

@@ -34,7 +34,7 @@ export const useCharacterById = (id) => {
   return { character, loading, error };
 };
 
-export const useAllCharacters = () => {
+export const useAllCharacters = (name) => {
   const navigate = useNavigate();
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,7 +44,9 @@ export const useAllCharacters = () => {
     const fetchCharacter = async () => {
       try {
         const response = await fetch(
-          `https://rickandmortyapi.com/api/character`
+          `https://rickandmortyapi.com/api/character/${
+            name ? `?name=${name}` : ""
+          }`
         );
         if (!response) {
           navigate("/error", { state: { error: "Personaje no Encontrado" } });
@@ -61,6 +63,6 @@ export const useAllCharacters = () => {
       }
     };
     fetchCharacter();
-  }, [navigate]);
+  }, [navigate, name]);
   return { characters, loading, error };
 };

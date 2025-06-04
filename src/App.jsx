@@ -4,11 +4,13 @@ import { Home } from "./pages/Home";
 import { NotFound } from "./pages/NotFound";
 import { CharacterDetail } from "./pages/CharacterDetail";
 import { CharacterList } from "./pages/CharacterList";
+import { Navbar } from "./components/Navbar";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/error" element={<NotFound />} />
