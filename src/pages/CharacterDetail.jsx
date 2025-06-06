@@ -19,8 +19,8 @@ export const CharacterDetail = () => {
   }
 
   return (
-    <div className=" flex flex-col items-center justify-center my-10 md:justify-center    ">
-      <div className=" flex flex-col items-center md:justify-center md:items-center ">
+    <div className=" flex flex-col items-center justify-center  py-20 dark:bg-gray-950  bg-white  ">
+      <div className=" flex flex-col  items-center md:justify-center md:items-center ">
         <img
           className="w-50 md:w-70 rounded-md my-10 mx-auto"
           src={character.image}

@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
 body {
-  font-family: 'Onest', sans-serif;
+  font-family: "Onest", sans-serif;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));

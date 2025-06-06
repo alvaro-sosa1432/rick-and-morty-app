@@ -18,11 +18,11 @@ export const Protagonist = () => {
   }
 
   return (
-    <div className="text-center">
+    <div className="text-center py-20">
       <h1 className=" my-4  font-semibold text-cyan-500 sm:text-2xl md:text-3xl">
         Protagonistas
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5  md:gap-10 md:justify-center m-5  ">
+      <div className="flex flex-col flex-wrap sm:flex-row gap-5 sm:justify-center ">
         {character.map((person) => (
           <Card key={person.id} {...person} />
         ))}
