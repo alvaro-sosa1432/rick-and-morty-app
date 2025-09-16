@@ -60,18 +60,18 @@ export const CharacterList = () => {
       </div>
       <div className="py-6">
         {totalPages > 1 && (
-          <button className="flex mx-auto">
+          <button className="flex mx-auto ">
             <ReactPaginate
               pageCount={totalPages}
               pageRangeDisplayed={3}
               marginPagesDisplayed={1}
               onPageChange={handlePageChange}
-              forcePage={page - 1} // Convertimos a 0-based
-              containerClassName="flex justify-center gap-1 mt-6 "
-              pageClassName="px-3 py-1 border rounded  text-teal-500 border border-teal-500"
+              forcePage={page - 1}
+              containerClassName="flex justify-center gap-1 mt-6 cursor-pointer "
+              pageClassName="px-3 py-1 border rounded  text-white border border-teal-500 hover:bg-teal-500 transition-colors duration-300 "
               activeClassName=" text-teal-500 border border-teal-500"
-              previousClassName="px-3 py-1 border rounded  text-teal-500 border border-teal-500"
-              nextClassName="px-3 py-1 border rounded  text-teal-500 border border-teal-500"
+              previousClassName="px-3 py-1 border rounded  text-white border border-teal-500 hover:bg-teal-500 transition-colors duration-300"
+              nextClassName="px-3 py-1 border rounded  text-white border border-teal-500 hover:bg-teal-500 transition-colors duration-300"
               disabledClassName="opacity-50"
               breakClassName="px-3 py-1"
             />
