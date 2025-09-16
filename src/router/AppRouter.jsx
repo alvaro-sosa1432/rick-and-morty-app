@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { MainLayout } from "../layout/MainLayout";
 import { Home } from "../pages/Home";
 import { NotFound } from "../pages/NotFound";
@@ -7,7 +7,7 @@ import { CharacterList } from "../pages/CharacterList";
 
 export const AppRouter = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
@@ -16,6 +16,6 @@ export const AppRouter = () => {
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };

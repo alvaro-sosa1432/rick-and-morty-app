@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 
 export const ButtonMove = ({ id }) => {
@@ -8,16 +9,16 @@ export const ButtonMove = ({ id }) => {
       {currentId > 1 && (
         <Link
           to={`/character/${currentId - 1}`}
-          className="bg-teal-500 p-2 w-40 text-white text-center rounded-md cursor-pointer hover:bg-teal-700 transition-colors duration-300  "
+          className="bg-teal-500 p-2 w-40 text-white text-center rounded-md cursor-pointer hover:bg-teal-700 transition-colors duration-300 flex justify-center "
         >
-          Anterior
+          <Icon icon="ooui:arrow-previous-ltr" width="20" height="20" />
         </Link>
       )}
       <Link
         to={`/character/${currentId + 1}`}
-        className="bg-teal-500 p-2 w-40 text-white text-center rounded-md cursor-pointer  hover:bg-teal-700 transition-colors duration-300"
+        className="bg-teal-500 p-2 w-40 text-white text-center rounded-md cursor-pointer  hover:bg-teal-700 transition-colors duration-300 flex justify-center"
       >
-        Siguiente
+        <Icon icon="ooui:arrow-previous-rtl" width="20" height="20" />
       </Link>
     </div>
   );
