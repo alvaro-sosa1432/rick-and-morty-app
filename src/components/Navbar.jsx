@@ -5,11 +5,11 @@ export const Navbar = () => {
   const currentPath = location.pathname;
 
   return (
-    <nav className="flex justify-center py-10 gap-5 items-center dark:bg-gray-950">
+    <nav className=" hidden  justify-center  gap-5 items-center dark:bg-gray-950">
       {currentPath !== "/" && (
         <Link
           to={`/`}
-          className="bg-cyan-500 p-2 w-30 text-white text-center rounded-md cursor-pointer  "
+          className="bg-teal-500 p-2 w-40 text-white text-center rounded-md cursor-pointer hover:bg-teal-700 transition-colors duration-300  "
         >
           Inicio
         </Link>
@@ -18,7 +18,7 @@ export const Navbar = () => {
       {currentPath !== "/characterlist" && (
         <Link
           to={`/characterlist`}
-          className="bg-cyan-500 p-2 w-auto text-white text-center rounded-md cursor-pointer  "
+          className="bg-teal-500 p-2 w-40 text-white text-center rounded-md cursor-pointer  hover:bg-teal-700 transition-colors duration-300  "
         >
           Mas Personajes
         </Link>

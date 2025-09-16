@@ -4,7 +4,7 @@ export const ButtonLink = ({ id, content }) => {
   return (
     <Link
       to={`/character/${id}`}
-      className="bg-cyan-500 p-2 w-30 text-white text-center rounded-md cursor-pointer  "
+      className="bg-teal-500 p-2 w-40 hover:bg-teal-700 transition-colors duration-300 text-white text-center rounded-md cursor-pointer w  "
     >
       {content}
     </Link>

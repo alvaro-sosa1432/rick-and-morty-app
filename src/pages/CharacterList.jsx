@@ -43,9 +43,9 @@ export const CharacterList = () => {
 
   return (
     <div className="dark:bg-gray-950">
-      <div className="flex justify-center items-center gap-4   ">
+      <div className="flex justify-center items-center gap-4    ">
         <input
-          className="p-2 my-4 border border-cyan-500 rounded-md outline-none text-cyan-500"
+          className="p-2 my-4 border w-64  border-teal-500 rounded-md outline-none text-teal-500"
           type="text"
           placeholder="Buscar personaje"
           value={search}
@@ -53,7 +53,7 @@ export const CharacterList = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mx-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mx-5">
         {characters.map((character) => (
           <Card key={character.id} {...character} />
         ))}
@@ -68,10 +68,10 @@ export const CharacterList = () => {
               onPageChange={handlePageChange}
               forcePage={page - 1} // Convertimos a 0-based
               containerClassName="flex justify-center gap-1 mt-6 "
-              pageClassName="px-3 py-1 border rounded  text-cyan-500 border border-cyan-500"
-              activeClassName=" text-cyan-500 border border-cyan-500"
-              previousClassName="px-3 py-1 border rounded  text-cyan-500 border border-cyan-500"
-              nextClassName="px-3 py-1 border rounded  text-cyan-500 border border-cyan-500"
+              pageClassName="px-3 py-1 border rounded  text-teal-500 border border-teal-500"
+              activeClassName=" text-teal-500 border border-teal-500"
+              previousClassName="px-3 py-1 border rounded  text-teal-500 border border-teal-500"
+              nextClassName="px-3 py-1 border rounded  text-teal-500 border border-teal-500"
               disabledClassName="opacity-50"
               breakClassName="px-3 py-1"
             />

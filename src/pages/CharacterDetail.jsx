@@ -19,18 +19,18 @@ export const CharacterDetail = () => {
   }
 
   return (
-    <div className=" flex flex-col items-center justify-center  py-20 dark:bg-gray-950  bg-white  ">
-      <div className=" flex flex-col  items-center md:justify-center md:items-center ">
+    <div className=" flex flex-col items-center dark:bg-gray-950  bg-white h-screen gap-4 ">
+      <div className=" flex flex-col  items-center md:justify-center md:items-center gap-4 ">
         <img
           className="w-50 md:w-70 rounded-md my-10 mx-auto"
           src={character.image}
           alt={character.name}
         />
-        <h1 className=" text-center text-3xl md:text-4xl font-semibold text-cyan-400">
+        <h1 className=" text-center text-3xl md:text-4xl font-semibold text-teal-400">
           Nombre: {character.name}
         </h1>
       </div>
-      <section className="my-5 text-cyan-500 md:text-2xl">
+      <section className="my-5 text-teal-500 md:text-2xl">
         <p>Creado: {character.created}</p>
         <p>Estado: {character.status || "Desconocido"}</p>
         <p>Especie: {character.species}</p>

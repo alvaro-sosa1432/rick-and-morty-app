@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "../components/Header";
-import { Navbar } from "../components/Navbar";
 export const MainLayout = () => {
   return (
-    <>
+    <div className="transition-colors duration-300">
       <Header />
-      <Navbar />
-      <Outlet />
-    </>
+      <div className="relative">
+        <Outlet />
+      </div>
+    </div>
   );
 };
