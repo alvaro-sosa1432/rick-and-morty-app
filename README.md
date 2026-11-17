@@ -1,4 +1,4 @@
-# 🛸 Rick and Morty Wiki
+# 🛸 Rick and Morty App
 
 A responsive Rick and Morty character explorer built with **React, Vite, JavaScript, and Tailwind CSS**. Browse characters from the series, search by name, and explore detailed character information using the Rick and Morty API.
 
