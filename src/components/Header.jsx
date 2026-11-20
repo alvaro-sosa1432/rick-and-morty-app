@@ -1,21 +1,15 @@
 import { useState, useEffect } from "react";
-import { Icon } from "@iconify/react";
-// import { Navbar } from "./Navbar";
+import { FiMoon, FiSun } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import { HamburgerMenu } from "./HambugerMenu";
 
 export const Header = () => {
-  const preferenceColors = window.matchMedia(
-    "prefers-color-scheme: dark"
-  ).matches;
-
-  const [theme, setTheme] = useState(preferenceColors ? "dark" : "light");
+  const [theme, setTheme] = useState(() =>
+    window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+  );
 
   useEffect(() => {
-    if (theme === "dark") {
-      document.querySelector("html").classList.add("dark");
-    } else {
-      document.querySelector("html").classList.remove("dark");
-    }
+    document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);
 
   const handleTheme = () => {
@@ -23,30 +17,21 @@ export const Header = () => {
   };
 
   return (
-    <header className="flex justify-around items-center bg-white text-teal-500 shadow-xl/30 shadow-teal-500/50 flex-wrap dark:bg-gray-950  w-full sticky top-0 z-10    ">
-      <div className="">
+    <header className="sticky top-0 z-20 border-b border-(--border) bg-(--surface)">
+      <div className="page-shell grid h-16 grid-cols-[1fr_auto_1fr] items-center">
         <HamburgerMenu />
+        <Link to="/" aria-label="Rick and Morty, inicio" className="rounded-lg">
+          <img className="w-28 sm:w-36" src="/logo.webp" alt="" />
+        </Link>
+        <button
+          type="button"
+          onClick={handleTheme}
+          className="control min-w-11 justify-self-end hover:bg-(--hover)"
+          aria-label={theme === "light" ? "Activar tema oscuro" : "Activar tema claro"}
+        >
+          {theme === "light" ? <FiMoon size={20} aria-hidden="true" /> : <FiSun size={20} aria-hidden="true" />}
+        </button>
       </div>
-      <img className="my-3 w-30 sm:w-50 " src="/logo.webp" alt="" />
-      {/* <Navbar /> */}
-
-      <button onClick={handleTheme}>
-        {theme === "light" ? (
-          <Icon
-            className=" p-2 cursor-pointer hover:bg-gray-950 transition-colors duration-300 rounded-full "
-            icon="line-md:moon-simple"
-            width="50"
-            height="50"
-          />
-        ) : (
-          <Icon
-            className="p-2 cursor-pointer hover:bg-white rounded-full transition-colors duration-300"
-            icon="line-md:sunny-outline"
-            width="50"
-            height="50"
-          />
-        )}
-      </button>
     </header>
   );
 };

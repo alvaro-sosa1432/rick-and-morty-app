@@ -1,7 +1,106 @@
 @import "tailwindcss";
 
-body {
-  font-family: "Onest", sans-serif;
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  --canvas: var(--color-zinc-50);
+  --surface: white;
+  --text: var(--color-zinc-950);
+  --muted: var(--color-zinc-600);
+  --border: var(--color-zinc-200);
+  --control-border: var(--color-zinc-500);
+  --hover: var(--color-zinc-100);
+  --accent: var(--color-lime-800);
+  --accent-hover: var(--color-lime-900);
+  --accent-text: white;
+  --focus: var(--color-teal-700);
 }
 
-@custom-variant dark (&:where(.dark, .dark *));
+:root.dark {
+  color-scheme: dark;
+  --canvas: var(--color-zinc-950);
+  --surface: var(--color-zinc-900);
+  --text: var(--color-zinc-50);
+  --muted: var(--color-zinc-400);
+  --border: var(--color-zinc-800);
+  --control-border: var(--color-zinc-500);
+  --hover: var(--color-zinc-800);
+  --accent: var(--color-lime-300);
+  --accent-hover: var(--color-lime-200);
+  --accent-text: var(--color-zinc-950);
+  --focus: var(--color-teal-300);
+}
+
+body {
+  font-family: "Onest", sans-serif;
+  background: var(--canvas);
+  color: var(--text);
+}
+
+:where(a, button, input):focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+@layer components {
+  .page-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .surface {
+    @apply rounded-xl border;
+    background: var(--surface);
+    border-color: var(--border);
+  }
+
+  .muted {
+    color: var(--muted);
+  }
+
+  .control {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold motion-safe:transition-colors;
+  }
+
+  .control-secondary {
+    @apply border;
+    background: var(--surface);
+    border-color: var(--control-border);
+  }
+
+  .control-secondary:hover {
+    background: var(--hover);
+  }
+
+  .control-primary {
+    background: var(--accent);
+    color: var(--accent-text);
+  }
+
+  .control-primary:hover {
+    background: var(--accent-hover);
+  }
+
+  .pagination-link {
+    @apply min-w-11;
+  }
+
+  .pagination-link[aria-current="page"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-text);
+  }
+
+  .pagination-disabled .pagination-link {
+    @apply cursor-default;
+    border-color: var(--border);
+    color: var(--muted);
+    background: var(--canvas);
+  }
+}
+
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.8;
+  }
+}

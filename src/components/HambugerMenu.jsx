@@ -1,66 +1,56 @@
-import { useState } from "react";
-import { Icon } from "@iconify/react";
+import { useId, useRef, useState } from "react";
+import { FiMenu, FiX } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 
 export const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
-  const currentPath = location.pathname;
+  const menuId = useId();
+  const buttonRef = useRef(null);
+  const { pathname } = useLocation();
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const closeMenu = () => setIsOpen(false);
 
   return (
-    <div className="relative ">
+    <div
+      className="relative justify-self-start"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && isOpen) {
+          closeMenu();
+          buttonRef.current?.focus();
+        }
+      }}
+    >
       <button
-        onClick={toggleMenu}
-        className="p-4 focus:outline-none "
+        ref={buttonRef}
+        type="button"
+        onClick={() => setIsOpen((open) => !open)}
+        className="control relative z-10 min-w-11 hover:bg-(--hover)"
         aria-label="Menú principal"
         aria-expanded={isOpen}
+        aria-controls={menuId}
       >
-        <div className="w-6 h-6 flex items-center ">
-          <div className="">
-            <Icon
-              className="cursor-pointer  p-2 hover:bg-gray-950 hover:dark:bg-white rounded-full transition-colors duration-300 "
-              icon="line-md:menu"
-              width="50"
-              height="50"
-            />
-          </div>
-        </div>
+        {isOpen ? <FiX size={20} aria-hidden="true" /> : <FiMenu size={20} aria-hidden="true" />}
       </button>
-
-      {/* Menú desplegable */}
-      <div
-        className={`absolute  left-5 right-0 mt-4 w-48 bg-white dark:bg-gray-950 rounded-md shadow-lg py-1 z-50 transition-all duration-300 ease-in-out ${
-          isOpen
-            ? "opacity-100 visible transform translate-y-0"
-            : "opacity-0 invisible transform -translate-y-2"
-        }`}
-      >
-        <div className="flex flex-col gap-3 p-4">
-          {currentPath !== "/" && (
-            <Link to={`/`} className="hover:text-teal-300">
-              Inicio
-            </Link>
-          )}
-
-          {currentPath !== "/characterlist" && (
-            <Link to={`/characterlist`} className="hover:text-teal-300">
-              Mas Personajes
-            </Link>
-          )}
-        </div>
-      </div>
-
-      {/* Overlay para cerrar al hacer clic fuera del menú */}
       {isOpen && (
-        <div
-          className="fixed inset-0 z-40  bg-opacity-10"
-          onClick={() => setIsOpen(false)}
-        ></div>
+        <div className="fixed inset-0" aria-hidden="true" onClick={closeMenu} />
       )}
+      <nav
+        id={menuId}
+        aria-label="Navegación principal"
+        hidden={!isOpen}
+        className="surface absolute left-0 top-full z-10 mt-3 w-48 p-2 shadow-sm"
+      >
+        {pathname !== "/" && (
+          <Link to="/" onClick={closeMenu} className="control w-full justify-start hover:bg-(--hover)">
+            Inicio
+          </Link>
+        )}
+        {pathname !== "/characterlist" && (
+          <Link to="/characterlist" onClick={closeMenu} className="control w-full justify-start hover:bg-(--hover)">
+            Más personajes
+          </Link>
+        )}
+      </nav>
     </div>
   );
 };

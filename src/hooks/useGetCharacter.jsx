@@ -1,70 +1,38 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
-const URL = `https://rickandmortyapi.com/api/character`;
+const URL = "https://rickandmortyapi.com/api/character";
 
 export const useCharacterById = (id) => {
-  const navigate = useNavigate();
-  const [character, setCharacter] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchCharacter = async () => {
-      try {
-        const response = await fetch(
-          `https://rickandmortyapi.com/api/character/${id}`
-        );
-        if (!response.ok) {
-          navigate("/error", { state: { error: "Personaje no Encontrado" } });
-        }
-        const data = await response.json();
-        setCharacter(data);
-      } catch (error) {
-        setError(error);
-        navigate("/error", {
-          state: { error: "Error al Cargar el personaje" },
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCharacter();
-  }, [id, navigate]);
-  return { character, loading, error };
+  return useQuery({
+    queryKey: ["character", id],
+    queryFn: async ({ signal }) => {
+      const response = await fetch(`${URL}/${id}`, { signal });
+      if (!response.ok) throw new Error("No se pudo cargar el personaje");
+      return response.json();
+    },
+    retry: false,
+  });
 };
 
 export const useAllCharacters = (name, page) => {
-  const navigate = useNavigate();
-  const [characters, setCharacters] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [totalPages, setTotalPages] = useState();
+  return useQuery({
+    queryKey: ["characters", name, page],
+    queryFn: async ({ signal }) => {
+      const params = new URLSearchParams({ page });
+      if (name) params.set("name", name);
 
-  useEffect(() => {
-    const fetchCharacter = async () => {
-      try {
-        const response = await fetch(
-          `https://rickandmortyapi.com/api/character/?page=${page}${
-            name ? `&name=${name}` : ""
-          }`
-        );
-        if (!response) {
-          navigate("/error", { state: { error: "Personaje no Encontrado" } });
-        }
-        const data = await response.json();
-        setCharacters(data.results || []);
-        setTotalPages(data.info?.pages || 1);
-      } catch (error) {
-        setError(error);
-        navigate("/error", {
-          state: { error: "Error al Cargar el personaje" },
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCharacter();
-  }, [navigate, name, page]);
-  return { characters, loading, error, totalPages };
+      const response = await fetch(`${URL}/?${params}`, { signal });
+      if (response.status === 404) return { characters: [], totalPages: 1 };
+      if (!response.ok) throw new Error("No se pudieron cargar los personajes");
+
+      const data = await response.json();
+      return {
+        characters: data.results ?? [],
+        totalPages: data.info?.pages ?? 1,
+      };
+    },
+    placeholderData: (previousData, previousQuery) =>
+      previousQuery?.queryKey[1] === name ? previousData : undefined,
+    retry: false,
+  });
 };

@@ -1,41 +1,28 @@
-import { Icon } from "@iconify/react";
 import { GetProtagonist } from "../stack/GetCharacterStack";
 import { Card } from "./Card";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 export const Protagonist = () => {
   const { data, isPending, error } = GetProtagonist();
 
-  const navigate = useNavigate();
-
-  if (isPending)
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Icon
-          className="text-teal-500 w-20"
-          icon="line-md:loading-loop"
-          width="24"
-          height="24"
-        />
-      </div>
-    );
-  if (error) return navigate("*");
+  if (error || (!isPending && !Array.isArray(data))) {
+    return <Navigate to="/error" replace />;
+  }
 
   return (
-    <div className="text-center py-20">
-      <h1 className=" my-4  font-semibold text-teal-500 sm:text-2xl md:text-3xl">
+    <section aria-labelledby="protagonists-heading" className="border-t border-(--border) pt-8">
+      <h2 id="protagonists-heading" className="mb-5 text-2xl font-semibold tracking-tight">
         Protagonistas
-      </h1>
-      <div className="flex flex-col flex-wrap sm:flex-row gap-5 sm:justify-center ">
-        {data?.map((character) => (
-          <Card
-            key={character.id}
-            id={character.id}
-            name={character.name}
-            image={character.image}
-          />
-        ))}
-      </div>
-    </div>
+      </h2>
+      {isPending ? (
+        <p className="muted" role="status">Cargando protagonistas…</p>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 min-[400px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          {data.map(({ id, name, image }) => (
+            <Card key={id} id={id} name={name} image={image} />
+          ))}
+        </div>
+      )}
+    </section>
   );
 };

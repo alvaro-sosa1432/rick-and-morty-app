@@ -13,8 +13,8 @@ export const AppRouter = () => {
           <Route index element={<Home />} />
           <Route path="/characterlist" element={<CharacterList />} />
           <Route path="/character/:id" element={<CharacterDetail />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </HashRouter>
   );
